@@ -15,6 +15,14 @@ module.exports = gql`
         username: String!,
         createdAt: String!
     }
+    type Bid{
+        id: ID!,
+        biddenBook: Book,
+        bidderBook: Book,
+        user: ID!,
+        createdAt: String!
+    }
+
     input RegisterInput{
         username: String!,
         password: String!,
@@ -25,14 +33,22 @@ module.exports = gql`
         title: String!,
         author: String!
     }
+    input BidInput{
+        biddenBookId: ID!,
+        bidderBookId: ID!
+    }
+
     type Query{
         getBooks: [Book]
         getBook(bookId: String): Book!
+        getBids: [Bid]
     }
+
     type Mutation{
         register(registerInput: RegisterInput): User!
         login(username: String, password: String): User!
         postBook(bookInput: BookInput): Book!
         deleteBooks(bookId: String): String!
+        postBid(bidInput: BidInput): Bid!
     }
 `
